@@ -30,11 +30,11 @@ local Library = {
     HudRegistry = {};
 
     FontColor = Color3.fromRGB(255, 255, 255);
-    MainColor = Color3.fromRGB(28, 28, 28);
-    BackgroundColor = Color3.fromRGB(20, 20, 20);
-    AccentColor = Color3.fromRGB(0, 85, 255);
-    OutlineColor = Color3.fromRGB(50, 50, 50);
-    RiskColor = Color3.fromRGB(255, 50, 50),
+    MainColor = Color3.fromRGB(30, 30, 30); 
+    BackgroundColor = Color3.fromRGB(25, 25, 25); 
+    AccentColor = Color3.fromRGB(180, 180, 180); 
+    OutlineColor = Color3.fromRGB(50, 50, 50); 
+    RiskColor = Color3.fromRGB(255, 50, 50); 
 
     Black = Color3.new(0, 0, 0);
     Font = Enum.Font.Code,
@@ -467,6 +467,10 @@ do
             ZIndex = 15;
             Parent = ScreenGui,
         });
+
+        local Corner = Instance.new("UICorner")
+        Corner.CornerRadius = UDim.new(0, 5)
+        Corner.Parent = PickerFrameOuter
 
         DisplayFrame:GetPropertyChangedSignal('AbsolutePosition'):Connect(function()
             PickerFrameOuter.Position = UDim2.fromOffset(DisplayFrame.AbsolutePosition.X, DisplayFrame.AbsolutePosition.Y + 18);
@@ -1175,6 +1179,10 @@ do
         end;
 
         function KeyPicker:GetState()
+            if InputService:GetFocusedTextBox() then
+                return false
+            end
+
             if KeyPicker.Mode == 'Always' then
                 return true;
             elseif KeyPicker.Mode == 'Hold' then
@@ -1193,7 +1201,7 @@ do
             else
                 return KeyPicker.Toggled;
             end;
-        end;
+        end
 
         function KeyPicker:SetValue(Data)
             local Key, Mode = Data[1], Data[2];
@@ -1282,6 +1290,8 @@ do
         end);
 
         Library:GiveSignal(InputService.InputBegan:Connect(function(Input)
+            if InputService:GetFocusedTextBox() then return end
+
             if (not Picking) then
                 if KeyPicker.Mode == 'Toggle' then
                     local Key = KeyPicker.Value;
@@ -1315,6 +1325,8 @@ do
         end))
 
         Library:GiveSignal(InputService.InputEnded:Connect(function(Input)
+            if InputService:GetFocusedTextBox() then return end
+
             if (not Picking) then
                 KeyPicker:Update();
             end;
@@ -1433,6 +1445,10 @@ do
                 Size = UDim2.new(1, -4, 0, 20);
                 ZIndex = 5;
             });
+            
+            local Corner = Instance.new("UICorner")
+            Corner.CornerRadius = UDim.new(0, 8)
+            Corner.Parent = Outer 
 
             local Inner = Library:Create('Frame', {
                 BackgroundColor3 = Library.MainColor;
@@ -2697,7 +2713,7 @@ do
 
     local WatermarkOuter = Library:Create('Frame', {
         BorderColor3 = Color3.new(0, 0, 0);
-        Position = UDim2.new(0, 100, 0, -25);
+        Position = UDim2.new(0, 10, 0, 5);
         Size = UDim2.new(0, 213, 0, 20);
         ZIndex = 200;
         Visible = false;
