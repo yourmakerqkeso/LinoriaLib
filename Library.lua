@@ -1179,30 +1179,35 @@ do
 	Library.KeybindFrame.Visible = YSize > 0;
 	Library.KeybindFrame.Size = UDim2.new(0, math.max(XSize + 10, 210), 0, YSize + 23)
 end;
-        function KeyPicker:GetState()
-            if InputService:GetFocusedTextBox() then
-                return false
-            end
+		
+    function KeyPicker:GetState()
+	if InputService:GetFocusedTextBox() then
+		return false
+	end
 
-            if KeyPicker.Mode == 'Always' then
-                return true;
-            elseif KeyPicker.Mode == 'Hold' then
-                if KeyPicker.Value == 'None' then
-                    return false;
-                end
+	if ParentObj and ParentObj.Type == 'Toggle' and not ParentObj.Value then
+		return false
+	end
 
-                local Key = KeyPicker.Value;
+	if KeyPicker.Mode == 'Always' then
+		return true;
+	elseif KeyPicker.Mode == 'Hold' then
+		if KeyPicker.Value == 'None' then
+			return false;
+		end
 
-                if Key == 'MB1' or Key == 'MB2' then
-                    return Key == 'MB1' and InputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1)
-                        or Key == 'MB2' and InputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton2);
-                else
-                    return InputService:IsKeyDown(Enum.KeyCode[KeyPicker.Value]);
-                end;
-            else
-                return KeyPicker.Toggled;
-            end;
-        end
+		local Key = KeyPicker.Value;
+
+		if Key == 'MB1' or Key == 'MB2' then
+			return Key == 'MB1' and InputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1)
+				or Key == 'MB2' and InputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton2);
+		else
+			return InputService:IsKeyDown(Enum.KeyCode[KeyPicker.Value]);
+		end;
+	else
+		return KeyPicker.Toggled;
+	end;
+end
 
         function KeyPicker:SetValue(Data)
             local Key, Mode = Data[1], Data[2];
