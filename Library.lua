@@ -3572,6 +3572,7 @@ function Library:CreateWindow(...)
            Cursor:Destroy();
            CursorOutline:Destroy();
      end);
+end;
 
         for _, Desc in next, Outer:GetDescendants() do
             local Properties = {};
