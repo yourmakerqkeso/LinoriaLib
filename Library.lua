@@ -3543,7 +3543,7 @@ function Library:CreateWindow(...)
             local CursorOutline = Instance.new('ImageLabel');
             CursorOutline.BackgroundTransparency = 1;
             CursorOutline.Size = UDim2.fromOffset(20, 20);
-            CursorOutline.Image = 'rbxassetid://956547806'; 
+            CursorOutline.Image = 'rbxassetid://4827658486'; 
             CursorOutline.ImageColor3 = Color3.new(0, 0, 0);
             CursorOutline.ZIndex = 9999;
             CursorOutline.Parent = ScreenGui;
@@ -3551,7 +3551,7 @@ function Library:CreateWindow(...)
             local Cursor = Instance.new('ImageLabel');
             Cursor.BackgroundTransparency = 1;
             Cursor.Size = UDim2.fromOffset(20, 20);
-            Cursor.Image = 'rbxassetid://956547806';
+            Cursor.Image = 'rbxassetid://4827658486';
             Cursor.ZIndex = 10000;
             Cursor.Parent = ScreenGui;
 
